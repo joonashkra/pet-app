@@ -1,0 +1,27 @@
+.MainPage {
+    margin-bottom: 55px;
+}
+
+.MainPage select {
+    margin-bottom: 5px;
+}
+
+#LogOutButton {
+    position: fixed;
+    bottom: 1%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(65, 134, 114);
+    border-radius: 4px;
+    border: none;
+    z-index: 1;
+    opacity: 65%;
+    margin: 0;
+    width: max-content;
+}
+
+#CreatePetButton {
+    background-color: rgb(76, 156, 132);
+    border-radius: 4px;
+    border: none;
+}

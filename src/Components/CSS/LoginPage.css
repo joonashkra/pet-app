@@ -1,0 +1,18 @@
+.LoginPage {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.LoginForm {
+    width: max-content;
+    padding: 20px;
+}
+
+#LogInButton {
+    background-color: rgb(76, 156, 132);
+    border-radius: 4px;
+    border: none;
+    margin-top: 30px;
+}

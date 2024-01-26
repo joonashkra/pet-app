@@ -1,0 +1,23 @@
+#CreateVisitButton {
+    background-color: rgb(76, 156, 132);
+    border-radius: 4px;
+    border: none;
+}
+
+#UpdatePetButton {
+    background-color: rgb(76, 156, 132);
+    border-radius: 4px;
+    border: none;
+}
+
+.PetDetails select {
+    margin-bottom: 5px;
+}
+
+.react-datepicker-wrapper {
+    border: none;
+}
+
+.PetDetails {
+    margin-bottom: 20px;
+}
