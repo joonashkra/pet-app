@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import ListPetVisits from '../Visits/ListPetVisits';
 import UpdatePet from './UpdatePet';
@@ -56,9 +56,9 @@ function PetDetails() {
   }
 
   return (
-    <div>
+    <div className='PetDetails'>
     {accessToken ? (
-      <Container className='PetDetails'>
+      <Container>
           <div className='card'>
             <h4 className='card-header'>{pet.name}'s Details</h4>
             <div className='card-body'>
@@ -81,6 +81,7 @@ function PetDetails() {
         <Row>
           <ListPetVisits petId={id} petName={pet.name} petStatus={pet.status}/>
         </Row>
+        <Button id='GoBackButton'>Go Back</Button>
       </Container>
     ) : (
       <div>

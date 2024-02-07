@@ -53,7 +53,7 @@ function ListVisits() {
   }
 
   return (
-    <Container>
+    <Container className='VisitsList'>
       <Row>
         <Col>
           <div className="card">

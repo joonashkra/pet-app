@@ -1,5 +1,6 @@
 .MainPage {
-    margin-bottom: 55px;
+    margin-bottom: 60px;
+    width: 100vw;
 }
 
 .MainPage select {
@@ -11,11 +12,10 @@
     bottom: 1%;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgb(65, 134, 114);
+    background-color: rgba(76, 156, 132);
     border-radius: 4px;
     border: none;
-    z-index: 1;
-    opacity: 65%;
+    z-index: -1;
     margin: 0;
     width: max-content;
 }
