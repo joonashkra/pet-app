@@ -1,16 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import ListPets from './Pets/ListPets';
 import ListVisits from './Visits/ListVisits'
 import './CSS/MainPage.css'
 
+
 function MainPage() {
     const navigate = useNavigate();
-    const accessToken = localStorage.getItem('accessToken')
+    const accessToken = sessionStorage.getItem('accessToken')
 
     const handleLogOut = () => {
-      localStorage.removeItem('accessToken')
+      sessionStorage.removeItem('accessToken')
       navigate('/')
     }
 
@@ -19,8 +20,8 @@ function MainPage() {
           {accessToken ? (
             <div>
                 <Button onClick={handleLogOut} id="LogOutButton">Log Out</Button>
-                <ListPets />
-                <ListVisits />
+                <ListPets token={accessToken}/>
+                <ListVisits token={accessToken}/>
             </div>
           ) : (
             <div>

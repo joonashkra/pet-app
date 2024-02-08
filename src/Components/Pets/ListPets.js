@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import CreatePet from './CreatePet';
 import { GetOwnerId } from '../GetOwnerId';
 
-function ListPets() {
-  const accessToken = localStorage.getItem('accessToken')
+function ListPets(props) {
+  const accessToken = props.token
   const [pets, setPets] = useState([])
   const navigate = useNavigate()
 
@@ -50,7 +50,7 @@ function ListPets() {
   return (
     <Container>
       <Row>
-        <Col>
+        <Col className='PetsList'>
         <div className="card">
           <h4 className="card-header">Pets</h4>
           <div className="card-body">

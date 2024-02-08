@@ -3,9 +3,9 @@ import { Container, Row, Col, Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 
-function ListVisits() {
+function ListVisits(props) {
   const [visits, setVisits] = useState([])
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = props.token
   const navigate = useNavigate()
   const [showUpcoming, setShowUpcoming] = useState(true)
 

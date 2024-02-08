@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Button } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ListPetVisits from '../Visits/ListPetVisits';
 import UpdatePet from './UpdatePet';
 import './PetDetails.css'
@@ -10,6 +10,7 @@ function PetDetails() {
   const { id } = useParams()
   const [pet, setPet] = useState()
   const ownerId = GetOwnerId()
+  const navigate = useNavigate();
 
   const accessToken = localStorage.getItem("accessToken")
 
@@ -55,6 +56,10 @@ function PetDetails() {
     return <p style={{color: "red"}}>Failed to load pet details</p>
   }
 
+  const returnToPets = () => {
+    navigate("/pets")
+  }
+
   return (
     <div className='PetDetails'>
     {accessToken ? (
@@ -81,7 +86,7 @@ function PetDetails() {
         <Row>
           <ListPetVisits petId={id} petName={pet.name} petStatus={pet.status}/>
         </Row>
-        <Button id='GoBackButton'>Go Back</Button>
+        <Button id='GoBackButton' onClick={returnToPets}>Return to Pets</Button>
       </Container>
     ) : (
       <div>

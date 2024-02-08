@@ -1,27 +1,32 @@
 .MainPage {
     margin-bottom: 60px;
-    width: 100vw;
+    width: 99vw;
 }
 
 .MainPage select {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
 #LogOutButton {
     position: fixed;
-    bottom: 1%;
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(76, 156, 132);
     border-radius: 4px;
     border: none;
-    z-index: -1;
+    z-index: 1;
     margin: 0;
     width: max-content;
+    opacity: 70%;
 }
 
 #CreatePetButton {
     background-color: rgb(76, 156, 132);
     border-radius: 4px;
     border: none;
+}
+
+.PetsList .card {
+    min-height: 95%;
 }

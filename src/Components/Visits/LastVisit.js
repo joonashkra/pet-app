@@ -54,7 +54,7 @@ function LastVisit({ petId }) {
 
   return (
     <p>
-      {lastVisit ? lastVisit.date : 'No past visits'}
+      {lastVisit ? lastVisit.date : '-'}
     </p>
   )
 }

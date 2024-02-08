@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export function GetOwnerId() {
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = sessionStorage.getItem('accessToken')
   const [pets, setPets] = useState([])
 
   useEffect(() => {

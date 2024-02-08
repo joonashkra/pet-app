@@ -16,18 +16,19 @@
 }
 
 .PetDetails select {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
 #GoBackButton {
     position: fixed;
-    bottom: 1%;
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(76, 156, 132);
     border-radius: 4px;
     border: none;
-    z-index: -1;
+    z-index: 0;
+    opacity: 70%;
     margin: 0;
     width: max-content;
 }

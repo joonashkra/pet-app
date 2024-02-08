@@ -34,7 +34,7 @@ function LoginPage() {
       if (tokenResponse.status === 200) {
         const data = await tokenResponse.json()
         const accessToken = data.access_token;
-        localStorage.setItem('accessToken', accessToken);
+        sessionStorage.setItem('accessToken', accessToken);
         navigate('/pets', { state: { accessToken: accessToken } })
       }
       else {
