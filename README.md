@@ -9,4 +9,4 @@ run backend
 ### `npm install`
 ### `npm start`
 
-# Open [http://localhost:3000] to view in browser. Back-end runs on [http://localhost:4000]
+Open [http://localhost:3000] to view in browser. Back-end runs on [http://localhost:4000]
