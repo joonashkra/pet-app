@@ -5,6 +5,7 @@ import ListPetVisits from '../Visits/ListPetVisits';
 import UpdatePet from './UpdatePet';
 import './PetDetails.css'
 import { GetOwnerId } from '../GetOwnerId';
+import ErrorPage from '../ErrorPage';
 
 function PetDetails() {
   const { id } = useParams()
@@ -13,6 +14,7 @@ function PetDetails() {
   const navigate = useNavigate();
   const accessToken = sessionStorage.getItem("accessToken")
   const [doctorComment, setDoctorComment] = useState("")
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchPetDetails = async () => {
@@ -20,8 +22,15 @@ function PetDetails() {
         const response = await fetch(`http://localhost:4000/pets/${id}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-          },
+          }
         })
+
+        if (!response.ok) {
+          setTimeout(() => {
+            setError(<ErrorPage/>)
+          }, 200)
+          return;
+        }
 
         const petData = await response.json()
         setPet(petData)
@@ -42,12 +51,12 @@ function PetDetails() {
     getDoctorComment(id)
   }, [id, accessToken])
 
-  if (!pet) {
-    return <p style={{color: "red"}}>Error. Please log in.</p>
-  }
-
   const returnToPets = () => {
     navigate("/pets")
+  }
+
+  if (!pet || error) {
+    return <div>{error}</div>
   }
 
   const handleDoctorCommentChange = (e) => {
@@ -86,7 +95,7 @@ function PetDetails() {
       </Container>
     ) : (
       <div>
-        <p style={{color: "red"}}>Error. Please log in.</p>
+        <ErrorPage/>
       </div>
     )}
     </div>

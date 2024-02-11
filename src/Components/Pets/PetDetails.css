@@ -11,6 +11,7 @@
 
 #UpdatePetButton {
     background-color: rgb(76, 156, 132);
+    margin-top: 5px;
     border-radius: 4px;
     border: none;
 }

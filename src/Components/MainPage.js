@@ -24,7 +24,7 @@ function MainPage() {
             </div>
           ) : (
             <div>
-              <p style={{color: "red"}}>Error. Please log in.</p>
+              <h1 style={{color: "red"}}>Error. Page not found.</h1>
             </div>
           )}
         </div>
