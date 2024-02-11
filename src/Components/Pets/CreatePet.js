@@ -5,15 +5,22 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
 
-
-
 function CreatePet(props) {
   const navigate = useNavigate()
-
   const [petName, setPetName] = useState("")
   const [petType, setPetType] = useState("")
   const [petBirthDate, setPetBirthDate] = useState(new Date())
   const [errorMessage, setErrorMessage] = useState("")
+  const accessToken = localStorage.getItem('accessToken')
+  const updatePetList = props.updatePetList
+
+  const newPet = {
+    name: petName,
+    petType: petType,
+    status: "alive",
+    dob: petBirthDate.toISOString().substring(0, 10),
+    ownerId: props.ownerId
+  }
 
   const handlePetType = (e) => {
     setPetType(e.target.value);
@@ -27,20 +34,9 @@ function CreatePet(props) {
     setErrorMessage("Please enter valid data.")
   }
 
-  const accessToken = localStorage.getItem('accessToken')
-
-  const newPet = {
-    name: petName,
-    petType: petType,
-    status: "alive",
-    dob: petBirthDate.toISOString().substring(0, 10),
-    ownerId: props.ownerId
-  }
-
-    const addNewPet = async (e) => {
+  const addNewPet = async (e) => {
     if(petName && petType && petBirthDate <= new Date()) {
         e.preventDefault()
-
         try {
           const response = await fetch('http://localhost:4000/pets', {
             method: 'POST',
@@ -50,22 +46,16 @@ function CreatePet(props) {
             },
             body: JSON.stringify(newPet),
           })
-      
-          if (response.ok) {
-            const responseData = await response.json()
-            console.log('Pet added:', responseData)
-            props.updatePetList(newPet)
-            if(window.confirm("You will be navigated to view the details of newly-created pet.")) {
-              navigate(`/pets/${responseData.pet.id}`)
-            }
-            setPetType("")
-            setPetName("")
-            setPetBirthDate(new Date())
-          } 
-          else {
-            console.error('Failed to add pet')
+
+          const responseData = await response.json()
+          updatePetList(newPet)
+          if(window.confirm("You will be navigated to view the details of newly-created pet.")) {
+            navigate(`/pets/${responseData.pet.id}`)
           }
-        } 
+          setPetType("")
+          setPetName("")
+          setPetBirthDate(new Date())
+        }
         catch (error) {
           console.error('Error:', error)
         }
@@ -76,7 +66,6 @@ function CreatePet(props) {
       }
     }
   
-
   return (
     <div className='card'>
     <h4 className='card-header'>Add new pet</h4>

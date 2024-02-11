@@ -33,14 +33,14 @@ function LoginPage() {
     try {
       if (tokenResponse.status === 200) {
         const data = await tokenResponse.json()
-        const accessToken = data.access_token;
-        sessionStorage.setItem('accessToken', accessToken);
-        navigate('/pets', { state: { accessToken: accessToken } })
+        const accessToken = data.access_token
+        sessionStorage.setItem('accessToken', accessToken)
+        navigate('/pets', { state: { accessToken } })
       }
       else {
         setErrorMessage("Wrong username or password.")
       }
-    } 
+    }
     catch (error) {
       console.log("Failed to fetch data.")
     }

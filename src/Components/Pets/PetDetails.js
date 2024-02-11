@@ -11,23 +11,8 @@ function PetDetails() {
   const [pet, setPet] = useState()
   const ownerId = GetOwnerId()
   const navigate = useNavigate();
-
-  const accessToken = localStorage.getItem("accessToken")
-
+  const accessToken = sessionStorage.getItem("accessToken")
   const [doctorComment, setDoctorComment] = useState("")
-
-  useEffect(() => {
-    const storedComment = localStorage.getItem(`doctorComments/${id}`)
-    if (storedComment) {
-      setDoctorComment(storedComment)
-    }
-  }, [id])
-
-  const handleDoctorComment = (e) => {
-    const commentValue = e.target.value
-    setDoctorComment(commentValue)
-    localStorage.setItem(`doctorComments/${id}`, commentValue)
-  }
 
   useEffect(() => {
     const fetchPetDetails = async () => {
@@ -38,26 +23,37 @@ function PetDetails() {
           },
         })
 
-        if (response.ok) {
-          const petData = await response.json()
-          setPet(petData)
-        } else {
-          console.error('Failed to fetch pet details.')
-        }
-      } catch (error) {
-        console.error('Error fetching pet details:', error)
+        const petData = await response.json()
+        setPet(petData)
+      } 
+      catch (error) {
+        console.error('Error:', error)
+      }
+    }
+
+    const getDoctorComment = (id) => {
+      const storedComment = localStorage.getItem(`doctorComments/${id}`)
+      if (storedComment) {
+        setDoctorComment(storedComment)
       }
     }
 
     fetchPetDetails();
+    getDoctorComment(id)
   }, [id, accessToken])
 
   if (!pet) {
-    return <p style={{color: "red"}}>Failed to load pet details</p>
+    return <p style={{color: "red"}}>Error. Please log in.</p>
   }
 
   const returnToPets = () => {
     navigate("/pets")
+  }
+
+  const handleDoctorCommentChange = (e) => {
+    const commentValue = e.target.value
+    setDoctorComment(commentValue)
+    localStorage.setItem(`doctorComments/${id}`, commentValue)
   }
 
   return (
@@ -75,10 +71,10 @@ function PetDetails() {
               {ownerId === 0 && (
                 <div className='DoctorSection'>
                   <label htmlFor="exampleFormControlTextarea1" className="form-label">Notes:</label> 
-                  <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" value={doctorComment} onChange={handleDoctorComment}></textarea>
+                  <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" value={doctorComment} onChange={handleDoctorCommentChange}></textarea>
                   <br/>
                   <label>Update {pet.name}'s status:</label>
-                  <UpdatePet id={id} status={pet.status}/>
+                  <UpdatePet petId={id} petStatus={pet.status}/>
                 </div>
               )}
             </div>
@@ -94,7 +90,7 @@ function PetDetails() {
       </div>
     )}
     </div>
-  );
+  )
 }
 
 export default PetDetails;

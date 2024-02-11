@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 export function GetOwnerId() {
   const accessToken = sessionStorage.getItem('accessToken')
   const [pets, setPets] = useState([])
+  const [ownerId, setOwnerId] = useState(0)
 
   useEffect(() => {
     if (accessToken) {
@@ -14,21 +15,18 @@ export function GetOwnerId() {
         .then((response) => response.json())
         .then((petData) => setPets(petData))
         .catch((error) => console.error('Error fetching pets:', error))
-    } else {
+    } 
+    else {
       console.log("401 Forbidden")
     }
-  }, [accessToken])
 
-  const [ownerId, setOwnerId] = useState(0)
-
-  useEffect(() => {
     const calculateOwnerId = () => {
       const ownerIds = [...new Set(pets.map((pet) => pet.ownerId))]
       setOwnerId(ownerIds.length === 1 ? ownerIds[0] : 0)
     }
-
     calculateOwnerId()
-  }, [pets])
+
+  }, [accessToken, pets])
 
   return ownerId
 }

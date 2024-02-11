@@ -9,7 +9,9 @@ function ListPets(props) {
   const accessToken = props.token
   const [pets, setPets] = useState([])
   const navigate = useNavigate()
-
+  const ownerId = GetOwnerId()
+  const [showOnlyAlive, setShowOnlyAlive] = useState(false)
+  
   useEffect(() => {
     if (accessToken) {
       fetch('http://localhost:4000/pets', {
@@ -20,7 +22,8 @@ function ListPets(props) {
         .then((response) => response.json())
         .then((petData) => setPets(petData))
         .catch((error) => console.error('Error fetching pets:', error))
-    } else {
+    } 
+    else {
       navigate('/')
     }
   }, [accessToken, navigate])
@@ -33,19 +36,15 @@ function ListPets(props) {
     navigate(`/pets/${petId}`)
   }
 
-  const ownerId = GetOwnerId()
-
-  const [showOnlyAlive, setShowOnlyAlive] = useState(false)
-
   const showAlive = () => {
     return pets.filter((pet) => pet.status === 'alive')
   }
 
+  const filteredPets = showOnlyAlive ? showAlive() : pets
+
   const handleCheckboxChange = () => {
     setShowOnlyAlive(!showOnlyAlive);
   }
-
-  const filteredPets = showOnlyAlive ? showAlive() : pets
 
   return (
     <Container>
