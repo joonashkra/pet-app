@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import ListPets from './Pets/ListPets';
 import ListVisits from './Visits/ListVisits'
-import './CSS/MainPage.css'
+import './MainPage.css'
 
 function MainPage() {
     const accessToken = sessionStorage.getItem('accessToken')

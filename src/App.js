@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import LoginPage from './Components/LoginPage';
 import MainPage from './Components/MainPage';
 import ErrorPage from './Components/ErrorPage';
-import './CSS/App.css'
+import './App.css'
 import PetDetails from './Components/Pets/PetDetails';
 
 
