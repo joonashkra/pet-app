@@ -62,7 +62,7 @@ function ListPets(props) {
             <Table className="table table-hover">
               <thead>
                 <tr>
-                  <th scope="col">ID</th>
+                  <th scope="col">Pet ID</th>
                   <th scope="col">Name</th>
                   <th scope="col">Type</th>
                   <th scope="col">Status</th>
@@ -71,7 +71,7 @@ function ListPets(props) {
               </thead>
               <tbody>
               {filteredPets
-                  .sort((a, b) => a.id - b.id) //Sort in ascending order
+                  .sort((a, b) => a.id - b.id) //Sort in ascending order by PetId
                   .map((pet) => (
                     <tr key={pet.id} onClick={() => getPetDetails(pet.id)} style={{ cursor: 'pointer' }}>
                       <td>{pet.id}</td>

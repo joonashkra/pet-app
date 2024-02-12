@@ -7,12 +7,18 @@
 
 .LoginForm {
     width: max-content;
-    padding: 20px;
+    padding: 30px;
+}
+
+.LoginForm input {
+    margin-bottom: 20px;
 }
 
 #LogInButton {
-    background-color: rgb(76, 156, 132);
     border-radius: 4px;
     border: none;
-    margin-top: 30px;
+    margin-top: 15px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.219);
+    width: 100%;
 }

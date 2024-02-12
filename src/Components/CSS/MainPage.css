@@ -1,5 +1,5 @@
 .MainPage {
-    margin-bottom: 60px;
+    margin-bottom: 65px;
     width: 99vw;
 }
 
@@ -12,21 +12,23 @@
     bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: rgba(76, 156, 132);
     border-radius: 4px;
     border: none;
     z-index: 1;
     margin: 0;
+    opacity: 90%;
     width: max-content;
-    opacity: 70%;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.219);
 }
 
 #CreatePetButton {
-    background-color: rgb(76, 156, 132);
     border-radius: 4px;
     border: none;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.219);
 }
 
 .PetsList .card {
-    min-height: 95%;
+    min-height: 95.3%;
 }

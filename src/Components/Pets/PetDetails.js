@@ -76,9 +76,9 @@ function PetDetails() {
               <p>Type: {pet.petType.toUpperCase()}</p>
               <p>Status: {pet.status.toUpperCase()}</p>
               <p>Date of Birth: {pet.dob}</p>
-              <hr/>
               {ownerId === 0 && (
                 <div className='DoctorSection'>
+                  <hr/>
                   <label htmlFor="exampleFormControlTextarea1" className="form-label">Notes:</label> 
                   <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" value={doctorComment} onChange={handleDoctorCommentChange}></textarea>
                   <br/>
