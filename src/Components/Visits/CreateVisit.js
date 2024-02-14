@@ -11,7 +11,7 @@ function CreateVisit(props) {
   const [visitDate, setVisitDate] = useState(new Date())
   const [comment, setComment] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
-  const accessToken = sessionStorage.getItem('accessToken')
+  const accessToken = props.accessToken
 
   const handleComment = (e) => {
     setComment(e.target.value)

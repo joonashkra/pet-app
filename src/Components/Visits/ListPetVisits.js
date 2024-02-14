@@ -5,9 +5,9 @@ import { GetOwnerId } from '../GetOwnerId';
 
 function ListPetVisits(props) {
     const [visits, setVisits] = useState([])
-    const accessToken = sessionStorage.getItem('accessToken')
+    const accessToken = props.accessToken
     const [showUpcoming, setShowUpcoming] = useState(true)
-    const ownerId = GetOwnerId()
+    const ownerId = GetOwnerId(accessToken)
     const petId = Number(props.petId)
     const petStatus = props.petStatus
   
@@ -77,7 +77,7 @@ function ListPetVisits(props) {
               {petStatus === "alive" && (
               <div>
                   <hr/>
-                  <CreateVisit addVisit={addVisit} ownerId={ownerId} petId={props.petId}/>
+                  <CreateVisit addVisit={addVisit} ownerId={ownerId} petId={props.petId} accessToken={accessToken}/>
               </div>
               )}
             </div>

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Table } from 'react-bootstrap';
 
 function ListVisits(props) {
+  const accessToken = props.accessToken
   const [visits, setVisits] = useState([])
-  const accessToken = props.token
   const [showUpcoming, setShowUpcoming] = useState(true)
 
   useEffect(() => {
@@ -58,7 +58,7 @@ function ListVisits(props) {
                 </thead>
                 <tbody>
                   {filteredVisits.map((visit) => (
-                    <tr key={visit.id}>
+                    <tr data-testid="visit-tr" key={visit.id}>
                       <td>{visit.petId}</td>
                       <td>{visit.date}</td>
                       <td>{visit.comment}</td>

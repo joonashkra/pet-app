@@ -6,26 +6,29 @@ import CreatePet from './CreatePet';
 import { GetOwnerId } from '../GetOwnerId';
 
 function ListPets(props) {
-  const accessToken = props.token
+  const accessToken = props.accessToken
   const [pets, setPets] = useState([])
   const navigate = useNavigate()
-  const ownerId = GetOwnerId()
+  const ownerId = GetOwnerId(accessToken)
   const [showOnlyAlive, setShowOnlyAlive] = useState(false)
   
   useEffect(() => {
-    if (accessToken) {
-      fetch('http://localhost:4000/pets', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((petData) => setPets(petData))
-        .catch((error) => console.error('Error fetching pets:', error))
-    } 
-    else {
-      navigate('/')
+    const fetchPets = () => {
+      if (accessToken) {
+        fetch('http://localhost:4000/pets', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+          .then((response) => response.json())
+          .then((petData) => setPets(petData))
+          .catch((error) => console.error('Error fetching pets:', error))
+      } 
+      else {
+        navigate('/')
+      }
     }
+    fetchPets()
   }, [accessToken, navigate])
 
   const updatePetList = (newPet) => {
@@ -62,7 +65,7 @@ function ListPets(props) {
             <Table className="table table-hover">
               <thead>
                 <tr>
-                  <th scope="col">Pet ID</th>
+                  <th scope="col">ID</th>
                   <th scope="col">Name</th>
                   <th scope="col">Type</th>
                   <th scope="col">Status</th>
@@ -73,13 +76,13 @@ function ListPets(props) {
               {filteredPets
                   .sort((a, b) => a.id - b.id) //Sort in ascending order by PetId
                   .map((pet) => (
-                    <tr key={pet.id} onClick={() => getPetDetails(pet.id)} style={{ cursor: 'pointer' }}>
+                    <tr data-testid="pet-tr" key={pet.id} onClick={() => getPetDetails(pet.id)} style={{ cursor: 'pointer' }}>
                       <td>{pet.id}</td>
                       <td>{pet.name}</td>
                       <td>{pet.petType.toUpperCase()}</td>
                       <td>{pet.status.toUpperCase()}</td>
                       <td>
-                        <LastVisit petId={pet.id} />
+                        <LastVisit petId={pet.id} accessToken={accessToken}/>
                       </td>
                     </tr>
                   ))}
@@ -93,7 +96,7 @@ function ListPets(props) {
           <div></div>
         ) : (
           <Col>
-            <CreatePet updatePetList={updatePetList} ownerId={ownerId}/>
+            <CreatePet updatePetList={updatePetList} ownerId={ownerId} accessToken={accessToken}/>
           </Col>
         )}
       </Row>

@@ -18,8 +18,8 @@ function MainPage() {
         <div className='MainPage'>
           {accessToken ? (
             <div>
-                <ListPets token={accessToken}/>
-                <ListVisits token={accessToken}/>
+                <ListPets accessToken={accessToken}/>
+                <ListVisits accessToken={accessToken}/>
                 <Button onClick={handleLogOut} id="LogOutButton">Log Out</Button>
             </div>
           ) : (

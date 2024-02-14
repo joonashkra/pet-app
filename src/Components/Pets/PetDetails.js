@@ -8,11 +8,11 @@ import { GetOwnerId } from '../GetOwnerId';
 import ErrorPage from '../ErrorPage';
 
 function PetDetails() {
+  const accessToken = sessionStorage.getItem('accessToken')
   const { id } = useParams()
   const [pet, setPet] = useState()
-  const ownerId = GetOwnerId()
+  const ownerId = GetOwnerId(accessToken)
   const navigate = useNavigate();
-  const accessToken = sessionStorage.getItem("accessToken")
   const [doctorComment, setDoctorComment] = useState("")
   const [error, setError] = useState(null)
 
@@ -83,13 +83,13 @@ function PetDetails() {
                   <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" value={doctorComment} onChange={handleDoctorCommentChange}></textarea>
                   <br/>
                   <label>Update {pet.name}'s status:</label>
-                  <UpdatePet petId={id} petStatus={pet.status}/>
+                  <UpdatePet petId={id} petStatus={pet.status} accessToken={accessToken}/>
                 </div>
               )}
             </div>
           </div>
         <Row>
-          <ListPetVisits petId={id} petName={pet.name} petStatus={pet.status}/>
+          <ListPetVisits petId={id} petName={pet.name} petStatus={pet.status} accessToken={accessToken}/>
         </Row>
         <Button id='GoBackButton' onClick={returnToPets}>Return to Pets</Button>
       </Container>

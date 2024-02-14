@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-function LastVisit({ petId }) {
-  const accessToken = localStorage.getItem('accessToken')
+function LastVisit(props) {
+  const accessToken = props.accessToken
+  const petId = props.petId
   const [visits, setVisits] = useState([])
   const [lastVisit, setLastVisit] = useState(null)
 

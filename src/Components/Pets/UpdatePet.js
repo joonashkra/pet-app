@@ -7,6 +7,7 @@ function UpdatePet(props) {
   const [newStatus, setNewStatus] = useState("")
   const petId = props.petId
   const petStatus = props.petStatus
+  const accessToken = props.accessToken
 
   const updatePet = async () => {
     try {
@@ -14,7 +15,7 @@ function UpdatePet(props) {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({ status: newStatus }),
       })

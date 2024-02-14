@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function GetOwnerId() {
-  const accessToken = sessionStorage.getItem('accessToken')
+export function GetOwnerId(accessToken) {
   const [pets, setPets] = useState([])
   const [ownerId, setOwnerId] = useState(0)
 

@@ -11,7 +11,7 @@ function CreatePet(props) {
   const [petType, setPetType] = useState("")
   const [petBirthDate, setPetBirthDate] = useState(new Date())
   const [errorMessage, setErrorMessage] = useState("")
-  const accessToken = localStorage.getItem('accessToken')
+  const accessToken = props.accessToken
   const updatePetList = props.updatePetList
 
   const newPet = {
