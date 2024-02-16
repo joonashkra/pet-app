@@ -49,7 +49,10 @@ describe("login", () => {
             return {
                 setItem: jest.fn((key, value) => {
                     store[key] = value.toString();
-                })
+                }),
+                removeItem(key) {
+                    delete store[key];
+                },
             }
         })()
         Object.defineProperty(window, 'sessionStorage', { value: sessionStorageMock })

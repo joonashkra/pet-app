@@ -4,18 +4,6 @@ import CreatePet from './CreatePet';
 import { MemoryRouter } from 'react-router-dom';
 import ListPets from './ListPets';
 
-const mockedUsedNavigate = jest.fn();
-
-jest.mock('react-router-dom', () => ({
-   ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockedUsedNavigate,
-}));
-
-const setup = (props = {}) => {
-    const wrapper = mount(<CreatePet {...props} />);
-    return wrapper;
-  };
-
 describe('CreatePet', () => {
   const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwicm9sZSI6InBldF9vd25lciIsImlhdCI6MTUxNjIzOTAyMn0.QAtAc6Imr2-NDhRpPcobJfjA20vh_bDk3wMhL_-46Fw";
   const handleOnSubmitMock = jest.fn();

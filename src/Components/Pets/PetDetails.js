@@ -16,8 +16,6 @@ export default function PetDetails(props) {
   const userId = props.userId
   const navigate = useNavigate();
 
-  console.log(userId)
-
   useEffect(() => {
     const fetchPetDetails = async () => {
       try {

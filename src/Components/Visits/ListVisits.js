@@ -66,7 +66,7 @@ export default function ListVisits(props) {
           <div className="card">
             <h4 className="card-header">Visits</h4>
             <div className="card-body" style={{overflowY: "auto"}}>
-              <select value={showUpcoming ? 'upcoming' : 'past'} onChange={toggleVisitsList} className="form-select form-select-sm" aria-label="Small select example">
+              <select value={showUpcoming ? 'upcoming' : 'past'} onChange={toggleVisitsList} className="form-select form-select-sm" aria-label="Small select example" data-testid="visit-select">
                 <option value="upcoming">Upcoming Visits</option>
                 <option value="past">Past Visits</option>
               </select>
@@ -79,7 +79,7 @@ export default function ListVisits(props) {
                     <th scope="col">Comment</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody data-testid="visits-tbody">
                   {filteredVisits.map((visit) => (
                     <tr data-testid="visit-tr" key={visit.id}>
                       <td>{visit.petId}</td>
