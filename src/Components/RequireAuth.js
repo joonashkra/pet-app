@@ -1,7 +1,10 @@
 import React from 'react'
+import { GetUserId } from './GetUserId'
 
 export default function RequireAuth(props) {
+
     const accessToken = sessionStorage.getItem('accessToken')
+    const userId = GetUserId(accessToken)
 
     if(!accessToken) {
         return (
@@ -9,5 +12,5 @@ export default function RequireAuth(props) {
           )
     }
 
-    return React.cloneElement(props.children, { accessToken })
+    return React.cloneElement(props.children, { accessToken, userId })
 }

@@ -19,10 +19,7 @@ export default function UpdatePet(props) {
         },
         body: JSON.stringify({ status: newStatus }),
       })
-      const shouldRefresh = window.confirm("Pet status updated succesfully. Do you wish to refresh the page to view the updates immediately?")
-      if (shouldRefresh) {
-        window.location.reload(true)
-      }
+      window.location.reload(true)
     } 
     catch (error) {
       console.error('Error:', error)

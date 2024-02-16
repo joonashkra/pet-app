@@ -12,6 +12,7 @@ export default function CreatePet(props) {
   const [petBirthDate, setPetBirthDate] = useState(new Date())
   const accessToken = props.accessToken
   const updatePetList = props.updatePetList
+  const userId = props.userId
   const [errorMessage, setErrorMessage] = useState("")
 
   const newPet = {
@@ -19,7 +20,7 @@ export default function CreatePet(props) {
     petType: petType,
     status: "alive",
     dob: petBirthDate.toISOString().substring(0, 10),
-    ownerId: props.ownerId
+    ownerId: userId
   }
 
   const addNewPet = async (e) => {
@@ -37,9 +38,7 @@ export default function CreatePet(props) {
 
           const responseData = await response.json()
           updatePetList(newPet)
-          if(window.confirm("You will be navigated to view the details of newly-created pet.")) {
-            navigate(`/pets/${responseData.pet.id}`)
-          }
+          navigate(`/pets/${responseData.pet.id}`)
           setPetType("")
           setPetName("")
           setPetBirthDate(new Date())

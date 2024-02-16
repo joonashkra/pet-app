@@ -7,6 +7,7 @@ import './MainPage.css'
 
 export default function MainPage(props) {
     const accessToken = props.accessToken
+    const userId = props.userId
     const navigate = useNavigate()
 
     const handleLogOut = () => {
@@ -16,8 +17,8 @@ export default function MainPage(props) {
 
     return (
         <Container className='MainPage'>
-          <ListPets accessToken={accessToken}/>
-          <ListVisits accessToken={accessToken}/>
+          <ListPets accessToken={accessToken} userId={userId}/>
+          <ListVisits accessToken={accessToken} userId={userId}/>
           <Button onClick={handleLogOut} id="LogOutButton">Log Out</Button>
         </Container>
       )

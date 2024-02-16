@@ -4,19 +4,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ListPetVisits from '../Visits/ListPetVisits';
 import UpdatePet from './UpdatePet';
 import './PetDetails.css'
-import { GetOwnerId } from '../GetOwnerId';
 import ErrorPage from '../ErrorPage';
 
-export default function PetDetails() {
+export default function PetDetails(props) {
   const accessToken = sessionStorage.getItem('accessToken')
   const { id } = useParams()
   const [pet, setPet] = useState()
   const [doctorComment, setDoctorComment] = useState("")
   const [error, setError] = useState(null)
   const [ownerName, setOwnerName] = useState()
-  const ownerId = GetOwnerId(accessToken)
+  const userId = props.userId
   const navigate = useNavigate();
 
+  console.log(userId)
 
   useEffect(() => {
     const fetchPetDetails = async () => {
@@ -52,12 +52,12 @@ export default function PetDetails() {
     fetchPetDetails()
     getDoctorComment(id)
     
-  }, [id, accessToken, ownerId])
+  }, [id, accessToken])
 
   
   useEffect(() => {
     const fetchUserName = async () => {
-      if(ownerId > 0) return
+      if(userId > 0) return
       try {
         if (!pet) return; 
         const response = await fetch('http://localhost:4000/users', {
@@ -73,7 +73,7 @@ export default function PetDetails() {
       }
     }
     fetchUserName()
-  }, [accessToken, pet, ownerId]);
+  }, [accessToken, pet, userId]);
 
   const returnToPets = () => {
     navigate("/pets")
@@ -98,8 +98,8 @@ export default function PetDetails() {
               <p>Type: {pet.petType.toUpperCase()}</p>
               <p>Status: {pet.status.toUpperCase()}</p>
               <p>Date of Birth: {pet.dob}</p>
-              {ownerId === 0 ? <p>Owner: {ownerName}</p> : null}
-              {ownerId === 0 && (
+              {userId === 0 ? <p>Owner: {ownerName}</p> : null}
+              {userId === 0 && (
                 <div className='DoctorSection'>
                   <hr/>
                   <label htmlFor="exampleFormControlTextarea1" className="form-label">Notes:</label> 
@@ -112,7 +112,7 @@ export default function PetDetails() {
             </div>
           </div>
         <Row>
-          <ListPetVisits petId={id} petName={pet.name} petStatus={pet.status} accessToken={accessToken}/>
+          <ListPetVisits petId={id} petName={pet.name} petStatus={pet.status} accessToken={accessToken} userId={userId}/>
         </Row>
         <Button id='GoBackButton' onClick={returnToPets}>Return to Pets</Button>
       </Container>

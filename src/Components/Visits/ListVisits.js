@@ -5,7 +5,7 @@ export default function ListVisits(props) {
   const accessToken = props.accessToken
   const [visits, setVisits] = useState([])
   const [showUpcoming, setShowUpcoming] = useState(true)
-  const [pets, setPets] = useState({});
+  const [pets, setPets] = useState([]);
 
   useEffect(() => {
     const fetchVisits = async () => {
@@ -23,7 +23,6 @@ export default function ListVisits(props) {
       }
     }
     fetchVisits()
-
 
   }, [accessToken])
 

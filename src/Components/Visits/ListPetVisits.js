@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Col } from 'react-bootstrap';
 import CreateVisit from './CreateVisit';
-import { GetOwnerId } from '../GetOwnerId';
 
 export default function ListPetVisits(props) {
     const [visits, setVisits] = useState([])
     const accessToken = props.accessToken
     const [showUpcoming, setShowUpcoming] = useState(true)
-    const ownerId = GetOwnerId(accessToken)
     const petId = Number(props.petId)
     const petStatus = props.petStatus
   
@@ -77,7 +75,7 @@ export default function ListPetVisits(props) {
             {petStatus === "alive" && 
             <div>
                 <hr/>
-                <CreateVisit addVisit={addVisit} ownerId={ownerId} petId={props.petId} accessToken={accessToken}/>
+                <CreateVisit addVisit={addVisit} petId={props.petId} accessToken={accessToken}/>
             </div>
             }
           </div>

@@ -3,14 +3,14 @@ import LastVisit from '../Visits/LastVisit';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CreatePet from './CreatePet';
-import { GetOwnerId } from '../GetOwnerId';
 
 export default function ListPets(props) {
   const accessToken = props.accessToken
   const [pets, setPets] = useState([])
   const navigate = useNavigate()
-  const ownerId = GetOwnerId(accessToken)
-  const [showOnlyAlive, setShowOnlyAlive] = useState(false)
+  const userId = props.userId
+  const [showOnlyAlive, setShowOnlyAlive] = useState(true)
+  const [isChecked, setIsChecked] = useState(true)
   
   useEffect(() => {
     const fetchPets = () => {
@@ -47,6 +47,7 @@ export default function ListPets(props) {
 
   const handleCheckboxChange = () => {
     setShowOnlyAlive(!showOnlyAlive);
+    setIsChecked(!isChecked)
   }
 
   return (
@@ -56,7 +57,7 @@ export default function ListPets(props) {
             <h4 className="card-header">Pets</h4>
             <div className="card-body" style={{overflowY: "auto"}}>
               <div className="form-check">
-                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" onChange={handleCheckboxChange}/>
+                <input className="form-check-input" type="checkbox" value="" checked={isChecked} onChange={handleCheckboxChange}/>
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                   Show Only Alive
                 </label>
@@ -90,9 +91,9 @@ export default function ListPets(props) {
             </div>
           </div>
         </Col>
-        {ownerId > 0 &&
+        {userId > 0 &&
           <Col className='createPetContainer'>
-            <CreatePet updatePetList={updatePetList} ownerId={ownerId} accessToken={accessToken}/>
+            <CreatePet updatePetList={updatePetList} userId={userId} accessToken={accessToken}/>
           </Col>
         }
       </Row>
