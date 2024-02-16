@@ -1,32 +1,36 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MemoryRouter } from 'react-router-dom';
 import MainPage from './MainPage';
+import RequireAuth from './RequireAuth';
 
 describe('mainpage', () => { 
-  test('renders list of pets with accesstoken', () => {
-    jest.spyOn(global.Storage.prototype, 'getItem').mockReturnValue('accessToken')
+  test('renders page', () => {
   
     render(
       <MemoryRouter>
-        <MainPage />
+        <MainPage/>
       </MemoryRouter>
     )
   
-    expect(screen.getByText(/Pets/i)).toBeInTheDocument()
+    expect(screen.getByText("Pets")).toBeInTheDocument()
+    expect(screen.getByText("Visits")).toBeInTheDocument()
+    expect(screen.getByText("Log Out")).toBeInTheDocument()
   })
   
-  test('renders error message without access token', () => {
-    jest.spyOn(global.Storage.prototype, 'getItem').mockReturnValue(null)
-  
+  test('renders error message without access token', async () => {
+
     render(
       <MemoryRouter>
-        <MainPage />
+        <RequireAuth><MainPage /></RequireAuth>
       </MemoryRouter>
     )
   
-    expect(screen.getByText(/Error. Page not found./i)).toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByText("Error. Please login.")).toBeInTheDocument()
+    })
+    
   })
   
   test('clears access token on logout', () => {
@@ -39,8 +43,7 @@ describe('mainpage', () => {
       </MemoryRouter>
     )
   
-    fireEvent.click(screen.getByText(/Log Out/i))
+    fireEvent.click(screen.getByText("Log Out"))
     expect(removeAccessToken).toHaveBeenCalledWith('accessToken')
   })
-
 })
