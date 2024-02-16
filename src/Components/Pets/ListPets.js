@@ -13,9 +13,8 @@ export default function ListPets(props) {
   const [isChecked, setIsChecked] = useState(true)
   
   useEffect(() => {
-    const fetchPets = () => {
-      if (accessToken) {
-        fetch('http://localhost:4000/pets', {
+    const fetchPets = async () => {
+        await fetch('http://localhost:4000/pets', {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -24,10 +23,6 @@ export default function ListPets(props) {
           .then((petData) => setPets(petData))
           .catch((error) => console.error('Error fetching pets:', error))
       } 
-      else {
-        navigate('/')
-      }
-    }
     fetchPets()
   }, [accessToken, navigate])
 
@@ -57,7 +52,7 @@ export default function ListPets(props) {
             <h4 className="card-header">Pets</h4>
             <div className="card-body" style={{overflowY: "auto"}}>
               <div className="form-check">
-                <input className="form-check-input" type="checkbox" value="" checked={isChecked} onChange={handleCheckboxChange}/>
+                <input className="form-check-input" type="checkbox" value="" checked={isChecked} onChange={handleCheckboxChange} data-testid="filter-checkbox"/>
                 <label className="form-check-label" htmlFor="flexCheckDefault">
                   Show Only Alive
                 </label>
@@ -72,11 +67,11 @@ export default function ListPets(props) {
                     <th scope="col">Last Visit</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody data-testid="pet-tbody">
                 {filteredPets
                     .sort((a, b) => a.id - b.id) //Sort in ascending order by PetId
                     .map((pet) => (
-                      <tr data-testid="pet-tr" key={pet.id} onClick={() => getPetDetails(pet.id)} style={{ cursor: 'pointer' }}>
+                      <tr key={pet.id} onClick={() => getPetDetails(pet.id)} style={{ cursor: 'pointer' }} data-testid="pet-tr">
                         <td>{pet.id}</td>
                         <td>{pet.name}</td>
                         <td>{pet.petType.toUpperCase()}</td>
