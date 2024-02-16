@@ -29,6 +29,24 @@
     border: 1px solid rgba(0, 0, 0, 0.219);
 }
 
+.PetsList .createPetContainer {
+    height: fit-content;
+}
+
 .PetsList .card {
-    min-height: 95.3%;
+    max-height: 48vh;
+}
+
+.PetsList .card table thead th  {
+    position: sticky;
+    top: 0;
+}
+
+.VisitsList .card {
+    max-height: 40vh;
+}
+
+.VisitsList .card table thead th  {
+    position: sticky;
+    top: 0;
 }

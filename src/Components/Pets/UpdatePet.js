@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import 'react-datepicker/dist/react-datepicker.css';
 
-function UpdatePet(props) {
+export default function UpdatePet(props) {
 
   const [newStatus, setNewStatus] = useState("")
   const petId = props.petId
@@ -48,5 +48,3 @@ function UpdatePet(props) {
     </div>
   )
 }
-
-export default UpdatePet

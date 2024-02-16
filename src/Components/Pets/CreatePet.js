@@ -5,14 +5,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from 'react-router-dom';
 
-function CreatePet(props) {
+export default function CreatePet(props) {
   const navigate = useNavigate()
   const [petName, setPetName] = useState("")
   const [petType, setPetType] = useState("")
   const [petBirthDate, setPetBirthDate] = useState(new Date())
-  const [errorMessage, setErrorMessage] = useState("")
   const accessToken = props.accessToken
   const updatePetList = props.updatePetList
+  const [errorMessage, setErrorMessage] = useState("")
 
   const newPet = {
     name: petName,
@@ -20,18 +20,6 @@ function CreatePet(props) {
     status: "alive",
     dob: petBirthDate.toISOString().substring(0, 10),
     ownerId: props.ownerId
-  }
-
-  const handlePetType = (e) => {
-    setPetType(e.target.value);
-  }
-
-  const handlePetName = (e) => {
-    setPetName(e.target.value);
-  }
-
-  const showErrorMessage = () => {
-    setErrorMessage("Please enter valid data.")
   }
 
   const addNewPet = async (e) => {
@@ -61,11 +49,28 @@ function CreatePet(props) {
         }
       }
       else {
-        e.preventDefault()
-        showErrorMessage()
+        if(petName === "" || petType === "") {
+          triggerErrorMessage("Pet must have name and type.")
+        }
+        else {
+          triggerErrorMessage("Date of Birth cannot be a future date.")
+        }
+        e.preventDefault();
       }
-    }
-  
+  }
+
+  const handlePetType = (e) => {
+    setPetType(e.target.value);
+  }
+
+  const handlePetName = (e) => {
+    setPetName(e.target.value);
+  }
+
+  const triggerErrorMessage = (message) => {
+    setErrorMessage(<p style={{color: "red", marginTop: "12px", marginBottom: "0"}}>{message}</p>)
+  }
+
   return (
     <div className='card'>
     <h4 className='card-header'>Add new pet</h4>
@@ -78,6 +83,7 @@ function CreatePet(props) {
                   placeholder="Enter pet type..."
                   value={petType}
                   onChange={handlePetType}
+                  maxLength="10"
                 />
               </Form.Group>
               <br/>
@@ -88,6 +94,7 @@ function CreatePet(props) {
                   placeholder="Enter name..."
                   value={petName}
                   onChange={handlePetName}
+                  maxLength="10"
                 />
               </Form.Group>
               <br/>
@@ -96,12 +103,12 @@ function CreatePet(props) {
                 <DatePicker selected={petBirthDate} onChange={(date) => setPetBirthDate(date)} />
               </Form.Group>
               <br/>
-          <Button type="submit" id="CreatePetButton">Add Pet</Button>
-          <p style={{color: "red"}}>{errorMessage}</p>
+              <Button type="submit" id="CreatePetButton" onClick={addNewPet}>
+                  Add Pet
+              </Button>
+              {errorMessage ? errorMessage : null}
         </Form>
       </div>
     </div>
   )
 }
-
-export default CreatePet

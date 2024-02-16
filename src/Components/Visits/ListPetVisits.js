@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Table } from 'react-bootstrap';
+import { Table, Col } from 'react-bootstrap';
 import CreateVisit from './CreateVisit';
 import { GetOwnerId } from '../GetOwnerId';
 
-function ListPetVisits(props) {
+export default function ListPetVisits(props) {
     const [visits, setVisits] = useState([])
     const accessToken = props.accessToken
     const [showUpcoming, setShowUpcoming] = useState(true)
@@ -47,43 +47,41 @@ function ListPetVisits(props) {
     }
 
     return (
-      <Container>
-          <div className='card'>
-            <h4 className='card-header'>Visits</h4>
-            <div className='card-body'>
-              <select value={showUpcoming ? 'past' : 'upcoming'} onChange={toggleVisitsList} className="form-select form-select-sm" aria-label="Small select example">
-                <option value="past">Past Visits</option>
-                <option value="upcoming">Upcoming Visits</option>
-              </select>
-              <Table className="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">Date</th>
-                    <th scope="col">Comment</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {petId &&
-                  filteredVisits
-                      .filter((visit) => visit.petId === petId)
-                      .map((visit) => (
-                      <tr key={visit.id}>
-                          <td>{visit.date}</td>
-                          <td>{visit.comment}</td>
-                      </tr>
-                      ))}
-                  </tbody>
-              </Table>
-              {petStatus === "alive" && (
-              <div>
-                  <hr/>
-                  <CreateVisit addVisit={addVisit} ownerId={ownerId} petId={props.petId} accessToken={accessToken}/>
-              </div>
-              )}
+      <Col>
+        <div className='card'>
+          <h4 className='card-header'>Visits</h4>
+          <div className='card-body'>
+            <select value={showUpcoming ? 'past' : 'upcoming'} onChange={toggleVisitsList} className="form-select form-select-sm" aria-label="Small select example">
+              <option value="past">Past Visits</option>
+              <option value="upcoming">Upcoming Visits</option>
+            </select>
+            <Table className="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Date</th>
+                  <th scope="col">Comment</th>
+                </tr>
+              </thead>
+              <tbody>
+              {petId &&
+                filteredVisits
+                    .filter((visit) => visit.petId === petId)
+                    .map((visit) => (
+                    <tr key={visit.id}>
+                        <td>{visit.date}</td>
+                        <td>{visit.comment}</td>
+                    </tr>
+                    ))}
+                </tbody>
+            </Table>
+            {petStatus === "alive" && 
+            <div>
+                <hr/>
+                <CreateVisit addVisit={addVisit} ownerId={ownerId} petId={props.petId} accessToken={accessToken}/>
             </div>
+            }
           </div>
-      </Container>
+        </div>
+      </Col>
     );
 }
-
-export default ListPetVisits

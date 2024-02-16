@@ -1,11 +1,10 @@
 import React, { useState} from 'react'
-import { Container } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-function CreateVisit(props) {
+export default function CreateVisit(props) {
 
   const petId = props.petId ?? ''
   const [visitDate, setVisitDate] = useState(new Date())
@@ -78,27 +77,24 @@ function CreateVisit(props) {
   }
   
   return (
-    <Container>
-    <Form onSubmit={addNewVisit}>
-      <Form.Label>New Visit Date</Form.Label>
-      <Form.Group>
-        <DatePicker selected={visitDate} onChange={(date) => setVisitDate(date)} />
-      </Form.Group>
-        <br/>
-        <Form.Label>Comment</Form.Label>
-          <Form.Group>
-            <Form.Control
-              type="comment"
-              placeholder="Enter comment for visit..."
-              value={comment}
-              onChange={handleComment}
-            />
-          </Form.Group>
-        <p style={{color: "red"}}>{errorMessage}</p>
-      <Button type="submit" id="CreateVisitButton">Add Visit</Button>
-    </Form>
-    </Container>
+    <div>
+      <Form onSubmit={addNewVisit}>
+        <Form.Label>New Visit Date</Form.Label>
+        <Form.Group>
+          <DatePicker selected={visitDate} onChange={(date) => setVisitDate(date)} />
+          <p style={{color: "red"}}>{errorMessage}</p>
+        </Form.Group>
+          <Form.Label>Comment</Form.Label>
+            <Form.Group>
+              <Form.Control
+                type="comment"
+                placeholder="Enter comment for visit..."
+                value={comment}
+                onChange={handleComment}
+              />
+            </Form.Group>
+        <Button type="submit" id="CreateVisitButton">Add Visit</Button>
+      </Form>
+    </div>
   )
 }
-
-export default CreateVisit

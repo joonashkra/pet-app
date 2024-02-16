@@ -7,14 +7,16 @@ import './PetDetails.css'
 import { GetOwnerId } from '../GetOwnerId';
 import ErrorPage from '../ErrorPage';
 
-function PetDetails() {
+export default function PetDetails() {
   const accessToken = sessionStorage.getItem('accessToken')
   const { id } = useParams()
   const [pet, setPet] = useState()
-  const ownerId = GetOwnerId(accessToken)
-  const navigate = useNavigate();
   const [doctorComment, setDoctorComment] = useState("")
   const [error, setError] = useState(null)
+  const [ownerName, setOwnerName] = useState()
+  const ownerId = GetOwnerId(accessToken)
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchPetDetails = async () => {
@@ -29,7 +31,7 @@ function PetDetails() {
           setTimeout(() => {
             setError(<ErrorPage/>)
           }, 200)
-          return;
+          return
         }
 
         const petData = await response.json()
@@ -47,9 +49,31 @@ function PetDetails() {
       }
     }
 
-    fetchPetDetails();
+    fetchPetDetails()
     getDoctorComment(id)
-  }, [id, accessToken])
+    
+  }, [id, accessToken, ownerId])
+
+  
+  useEffect(() => {
+    const fetchUserName = async () => {
+      if(ownerId > 0) return
+      try {
+        if (!pet) return; 
+        const response = await fetch('http://localhost:4000/users', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        const userData = await response.json()
+        const owner = userData.find(user => user.id === pet.ownerId)
+        setOwnerName(owner.name)
+      } catch (error) {
+        console.error('Error fetching users:', error)
+      }
+    }
+    fetchUserName()
+  }, [accessToken, pet, ownerId]);
 
   const returnToPets = () => {
     navigate("/pets")
@@ -66,9 +90,7 @@ function PetDetails() {
   }
 
   return (
-    <div className='PetDetails'>
-    {accessToken ? (
-      <Container>
+      <Container className='PetDetails'>
           <div className='card'>
             <h4 className='card-header'>{pet.name}'s Details</h4>
             <div className='card-body'>
@@ -76,6 +98,7 @@ function PetDetails() {
               <p>Type: {pet.petType.toUpperCase()}</p>
               <p>Status: {pet.status.toUpperCase()}</p>
               <p>Date of Birth: {pet.dob}</p>
+              {ownerId === 0 ? <p>Owner: {ownerName}</p> : null}
               {ownerId === 0 && (
                 <div className='DoctorSection'>
                   <hr/>
@@ -93,13 +116,5 @@ function PetDetails() {
         </Row>
         <Button id='GoBackButton' onClick={returnToPets}>Return to Pets</Button>
       </Container>
-    ) : (
-      <div>
-        <ErrorPage/>
-      </div>
-    )}
-    </div>
   )
 }
-
-export default PetDetails;

@@ -4,7 +4,7 @@ function ErrorPage() {
 
   return (
     <div className='ErrorPage'>
-      <h1 style={{color: "red"}}>Error. Page not found.</h1>
+      <h1 style={{fontSize: "26px"}}>Error. Page not found.</h1>
     </div>
   )
 }

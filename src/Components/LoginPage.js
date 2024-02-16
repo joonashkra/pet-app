@@ -1,19 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import './LoginPage.css'
 
-function LoginPage() {
+export default function LoginPage() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
   const navigate = useNavigate()
 
+  useEffect(() => {
+    sessionStorage.removeItem('accessToken')
+  })
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
   }
   
-
   const handlePasswordChange = (e) => {
     setPassword(e.target.value)
   }
@@ -63,5 +66,3 @@ function LoginPage() {
     </Container>
   )
 }
-
-export default LoginPage
