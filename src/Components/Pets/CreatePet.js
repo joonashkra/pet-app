@@ -38,23 +38,23 @@ export default function CreatePet(props) {
 
           const responseData = await response.json()
           updatePetList(newPet)
-          navigate(`/pets/${responseData.pet.id}`)
           setPetType("")
           setPetName("")
           setPetBirthDate(new Date())
+          navigate(`/pets/${responseData.pet.id}`)
         }
         catch (error) {
           console.error('Error:', error)
         }
       }
       else {
+        e.preventDefault()
         if(petName === "" || petType === "") {
           triggerErrorMessage("Pet must have name and type.")
         }
         else {
           triggerErrorMessage("Date of Birth cannot be a future date.")
         }
-        e.preventDefault();
       }
   }
 
@@ -67,14 +67,14 @@ export default function CreatePet(props) {
   }
 
   const triggerErrorMessage = (message) => {
-    setErrorMessage(<p style={{color: "red", marginTop: "12px", marginBottom: "0"}}>{message}</p>)
+    setErrorMessage(<p style={{color: "red", marginTop: "12px", marginBottom: "0"}} data-testid="error-msg">{message}</p>)
   }
 
   return (
     <div className='card'>
     <h4 className='card-header'>Add new pet</h4>
       <div className='card-body'>
-        <Form onSubmit={addNewPet}>
+        <Form onSubmit={addNewPet} data-testid="create-pet-form">
             <Form.Label>Type</Form.Label>
               <Form.Group>
                 <Form.Control
@@ -97,12 +97,12 @@ export default function CreatePet(props) {
                 />
               </Form.Group>
               <br/>
-              <Form.Label>Date of Birth</Form.Label>
+              <Form.Label htmlFor="petBirthDate">Date of Birth</Form.Label>
               <Form.Group>
-                <DatePicker selected={petBirthDate} onChange={(date) => setPetBirthDate(date)} />
+                <DatePicker selected={petBirthDate} onChange={(date) => setPetBirthDate(date)} id="petBirthDate"/>
               </Form.Group>
               <br/>
-              <Button type="submit" id="CreatePetButton" onClick={addNewPet}>
+              <Button type="submit" id="CreatePetButton" data-testid="create-pet-btn">
                   Add Pet
               </Button>
               {errorMessage ? errorMessage : null}
