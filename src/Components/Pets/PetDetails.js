@@ -7,7 +7,7 @@ import './PetDetails.css'
 import ErrorPage from '../ErrorPage';
 
 export default function PetDetails(props) {
-  const accessToken = sessionStorage.getItem('accessToken')
+  const accessToken = props.accessToken
   const { id } = useParams()
   const [pet, setPet] = useState()
   const [doctorComment, setDoctorComment] = useState("")
@@ -88,7 +88,7 @@ export default function PetDetails(props) {
   }
 
   return (
-      <Container className='PetDetails'>
+      <Container className='PetDetails' data-testid="pet-container">
           <div className='card'>
             <h4 className='card-header'>{pet.name}'s Details</h4>
             <div className='card-body'>
@@ -102,7 +102,7 @@ export default function PetDetails(props) {
                       {userId === 0 && <th scope="col">Owner</th>}
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody data-testid="pet-details-tbody">
                     <tr>
                       <td>{pet.id}</td>
                       <td>{pet.petType.toUpperCase()}</td>
