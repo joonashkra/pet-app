@@ -92,11 +92,26 @@ export default function PetDetails(props) {
           <div className='card'>
             <h4 className='card-header'>{pet.name}'s Details</h4>
             <div className='card-body'>
-              <p>Pet ID: {pet.id}</p>
-              <p>Type: {pet.petType.toUpperCase()}</p>
-              <p>Status: {pet.status.toUpperCase()}</p>
-              <p>Date of Birth: {pet.dob}</p>
-              {userId === 0 ? <p>Owner: {ownerName}</p> : null}
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">D.O.B</th>
+                      {userId === 0 && <th scope="col">Owner</th>}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{pet.id}</td>
+                      <td>{pet.petType.toUpperCase()}</td>
+                      <td>{pet.status.toUpperCase()}</td>
+                      <td>{pet.dob}</td>
+                      {userId === 0 && <td>{ownerName}</td>}
+                    </tr>
+                  </tbody>
+                </table>
               {userId === 0 && (
                 <div className='DoctorSection'>
                   <hr/>
