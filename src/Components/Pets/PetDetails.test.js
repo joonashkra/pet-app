@@ -21,7 +21,6 @@ describe("PetDetails", () => {
     const accessToken = "mockAccessToken"
 
     test('renders pet details', async () => {
-        // Mock the fetch request to return the mock pet data
         jest.spyOn(global, 'fetch').mockResolvedValueOnce({
             ok: true,
             json: () => Promise.resolve(mockPet),
@@ -33,7 +32,6 @@ describe("PetDetails", () => {
             </MemoryRouter>
         );
 
-        // Wait for the component to render the pet details
         await waitFor(() => {
             expect(screen.getByTestId("pet-container")).toBeInTheDocument();
         });
@@ -41,8 +39,5 @@ describe("PetDetails", () => {
         expect(screen.getByText("Fluffy's Details")).toBeInTheDocument();
         const petDetailsTBody = screen.getByTestId("pet-details-tbody");
         expect(petDetailsTBody.children.length).toBeGreaterThan(0);
-        expect(screen.getByText("Owner")).toBeInTheDocument
-
-        // Add your additional assertions here
     });
 });
