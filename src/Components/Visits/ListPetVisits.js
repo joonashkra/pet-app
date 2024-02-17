@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Col } from 'react-bootstrap';
 import CreateVisit from './CreateVisit';
+import { useParams } from 'react-router-dom';
 
 export default function ListPetVisits(props) {
     const [visits, setVisits] = useState([])
@@ -60,17 +61,17 @@ export default function ListPetVisits(props) {
                   <th scope="col">Comment</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody data-testid="pet-visits-tbody">
               {petId &&
                 filteredVisits
                     .filter((visit) => visit.petId === petId)
                     .map((visit) => (
-                    <tr key={visit.id}>
+                    <tr data-testid="pet-visits-tr" key={visit.id}>
                         <td>{visit.date}</td>
                         <td>{visit.comment}</td>
                     </tr>
                     ))}
-                </tbody>
+              </tbody>
             </table>
             {petStatus === "alive" && 
             <div>

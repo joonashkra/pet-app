@@ -80,7 +80,7 @@ export default function PetDetails(props) {
   const handleDoctorCommentChange = (e) => {
     const commentValue = e.target.value
     setDoctorComment(commentValue)
-    localStorage.setItem(`doctorComments/${id}`, commentValue)
+    localStorage.setItem(`doctorComments/${pet.id}`, commentValue)
   }
 
   if (!pet || error) {
@@ -105,27 +105,27 @@ export default function PetDetails(props) {
                   <tbody data-testid="pet-details-tbody">
                     <tr>
                       <td>{pet.id}</td>
-                      <td>{pet.petType.toUpperCase()}</td>
-                      <td>{pet.status.toUpperCase()}</td>
+                      <td>{(pet.petType).toUpperCase()}</td>
+                      <td>{(pet.status).toUpperCase()}</td>
                       <td>{pet.dob}</td>
                       {userId === 0 && <td>{ownerName}</td>}
                     </tr>
                   </tbody>
                 </table>
-              {userId === 0 && (
-                <div className='DoctorSection'>
-                  <hr/>
-                  <label htmlFor="exampleFormControlTextarea1" className="form-label">Notes:</label> 
-                  <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" value={doctorComment} onChange={handleDoctorCommentChange}></textarea>
-                  <br/>
-                  <label>Update {pet.name}'s status:</label>
-                  <UpdatePet petId={id} petStatus={pet.status} accessToken={accessToken}/>
-                </div>
-              )}
+                {userId === 0 && (
+                  <div className='DoctorSection' data-testid="doctors-section">
+                    <hr/>
+                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Comment:</label> 
+                    <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" value={doctorComment} onChange={handleDoctorCommentChange}></textarea>
+                    <br/>
+                    <label>Update {pet.name}'s status:</label>
+                    <UpdatePet petId={pet.id} petStatus={pet.status} accessToken={accessToken}/>
+                  </div>
+                )}
             </div>
           </div>
         <Row>
-          <ListPetVisits petId={id} petName={pet.name} petStatus={pet.status} accessToken={accessToken} userId={userId}/>
+          <ListPetVisits petId={pet.id} petName={pet.name} petStatus={pet.status} accessToken={accessToken} userId={userId}/>
         </Row>
         <Button id='GoBackButton' onClick={returnToPets}>Return to Pets</Button>
       </Container>

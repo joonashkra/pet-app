@@ -38,16 +38,16 @@ export default function ListPets(props) {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           }
-        })
-        const data = await response.json()
-        setVisits(data)
+        });
+        const visitsData = await response.json();
+        setVisits(visitsData);
       } 
       catch (error) {
-        console.error('Error fetching visits:', error)
+        console.error('Error:', error);
       }
-    }
+    };
     fetchVisits();
-  }, [accessToken]); // Only run when accessToken changes
+  }, [accessToken]);
 
   const updatePetList = (newPet) => {
     setPets((petData) => [...petData, newPet])
@@ -97,8 +97,8 @@ export default function ListPets(props) {
                       <tr key={pet.id} onClick={() => getPetDetails(pet.id)} style={{ cursor: 'pointer' }} data-testid="pet-tr">
                         <td>{pet.id}</td>
                         <td>{pet.name}</td>
-                        <td>{pet.petType.toUpperCase()}</td>
-                        <td>{pet.status.toUpperCase()}</td>
+                        <td>{(pet.petType).toUpperCase()}</td>
+                        <td>{(pet.status).toUpperCase()}</td>
                         <td>
                           <LastVisit visits={visits} petId={pet.id} accessToken={accessToken}/>
                         </td>

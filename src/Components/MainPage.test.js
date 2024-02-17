@@ -6,11 +6,14 @@ import MainPage from './MainPage';
 import RequireAuth from './RequireAuth';
 
 describe('mainpage', () => { 
+
+  const accessToken = "mockAccessToken"
+
   test('renders page', () => {
   
     render(
       <MemoryRouter>
-        <MainPage/>
+        <MainPage accessToken={accessToken}/>
       </MemoryRouter>
     )
   
@@ -23,7 +26,7 @@ describe('mainpage', () => {
 
     render(
       <MemoryRouter>
-        <RequireAuth><MainPage /></RequireAuth>
+        <RequireAuth><MainPage accessToken={accessToken}/></RequireAuth>
       </MemoryRouter>
     )
   
@@ -39,7 +42,7 @@ describe('mainpage', () => {
   
     render(
       <MemoryRouter>
-        <MainPage />
+        <MainPage accessToken={accessToken}/>
       </MemoryRouter>
     )
   

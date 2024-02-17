@@ -5,7 +5,6 @@ export function GetUserId(accessToken) {
   
   useEffect(() => {
     if (!accessToken) {
-      console.error("401 Forbidden");
       return;
     }
 

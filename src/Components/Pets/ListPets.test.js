@@ -11,30 +11,31 @@ jest.mock('react-router-dom', () => ({
 
 const mockPets = [
   {
-    id: 1,
-    ownerId: 1,
-    name: 'Fluffy',
-    petType: 'Cat',
-    status: 'alive',
-    dob: '2022-01-01',
+    "id": 1,
+    "ownerId": 1,
+    "name": "Fluffy",
+    "petType": "Cat",
+    "status": "alive",
+    "dob": "2022-01-01"
   },
   {
-    id: 2,
-    ownerId: 2,
-    name: 'Rex',
-    petType: 'Dog',
-    status: 'alive',
-    dob: '2023-01-01',
+    "id": 2,
+    "ownerId": 2,
+    "name": "Rex",
+    "petType": "Dog",
+    "status": "alive",
+    "dob": "2023-01-01"
   },
   {
-    id: 3,
-    ownerId: 3,
-    name: 'Max',
-    petType: 'Dog',
-    status: 'deceased',
-    dob: '2021-01-01',
+    "id": 3,
+    "ownerId": 3,
+    "name": "Max",
+    "petType": "Dog",
+    "status": "deceased",
+    "dob": "2021-01-01"
   }
 ]
+
 
 describe('ListPets', () => { 
   const accessToken = "mockAccessToken"
