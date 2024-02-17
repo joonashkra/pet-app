@@ -7,6 +7,7 @@ import CreatePet from './CreatePet';
 export default function ListPets(props) {
   const accessToken = props.accessToken
   const [pets, setPets] = useState([])
+  const [visits, setVisits] = useState([])
   const navigate = useNavigate()
   const userId = props.userId
   const [showOnlyAlive, setShowOnlyAlive] = useState(true)
@@ -24,7 +25,25 @@ export default function ListPets(props) {
           .catch((error) => console.error('Error fetching pets:', error))
       } 
     fetchPets()
-  }, [accessToken, navigate])
+  }, [accessToken])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/visits', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          }
+        })
+        const data = await response.json()
+        setVisits(data)
+      } 
+      catch (error) {
+        console.error('Error fetching visits:', error)
+      }
+    }
+    fetchData();
+  }, [accessToken]); // Only run when accessToken changes
 
   const updatePetList = (newPet) => {
     setPets((petData) => [...petData, newPet])
@@ -77,7 +96,7 @@ export default function ListPets(props) {
                         <td>{pet.petType.toUpperCase()}</td>
                         <td>{pet.status.toUpperCase()}</td>
                         <td>
-                          <LastVisit petId={pet.id} accessToken={accessToken}/>
+                          <LastVisit visits={visits} petId={pet.id} accessToken={accessToken}/>
                         </td>
                       </tr>
                     ))}

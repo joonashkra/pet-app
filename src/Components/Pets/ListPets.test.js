@@ -34,6 +34,7 @@ describe('ListPets', () => {
   test('checkbox works', async () => {
     render(<MemoryRouter><ListPets accessToken={accessToken}/></MemoryRouter>)
     await waitFor(() => {
+      expect(screen.getByTestId("filter-checkbox")).toBeInTheDocument()
       const checkbox = screen.getByTestId("filter-checkbox");
       expect(checkbox).toBeChecked();
       const initialPetRows = screen.getAllByTestId("pet-tr").length;
