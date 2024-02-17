@@ -15,20 +15,24 @@ export default function ListPets(props) {
   
   useEffect(() => {
     const fetchPets = async () => {
-        await fetch('http://localhost:4000/pets', {
+      try {
+        const response = await fetch("http://localhost:4000/pets/", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-          },
+          }
         })
-          .then((response) => response.json())
-          .then((petData) => setPets(petData))
-          .catch((error) => console.error('Error fetching pets:', error))
+        const petsData = await response.json()
+        setPets(petsData)
       } 
+      catch (error) {
+        console.error('Error:', error)
+      }
+    }
     fetchPets()
   }, [accessToken])
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchVisits = async () => {
       try {
         const response = await fetch('http://localhost:4000/visits', {
           headers: {
@@ -42,7 +46,7 @@ export default function ListPets(props) {
         console.error('Error fetching visits:', error)
       }
     }
-    fetchData();
+    fetchVisits();
   }, [accessToken]); // Only run when accessToken changes
 
   const updatePetList = (newPet) => {

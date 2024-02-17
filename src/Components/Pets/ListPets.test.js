@@ -9,20 +9,58 @@ jest.mock('react-router-dom', () => ({
     useNavigate: () => mockedUsedNavigate,
 }))
 
+const mockPets = [
+  {
+    id: 1,
+    ownerId: 1,
+    name: 'Fluffy',
+    petType: 'Cat',
+    status: 'alive',
+    dob: '2022-01-01',
+  },
+  {
+    id: 2,
+    ownerId: 2,
+    name: 'Rex',
+    petType: 'Dog',
+    status: 'alive',
+    dob: '2023-01-01',
+  },
+  {
+    id: 3,
+    ownerId: 3,
+    name: 'Max',
+    petType: 'Dog',
+    status: 'deceased',
+    dob: '2021-01-01',
+  }
+]
+
 describe('ListPets', () => { 
-  const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwicm9sZSI6ImRvY3RvciIsImlhdCI6MTUxNjIzOTAyMn0.0_MKcjJoHX-Vsjb4vVlWZLZMY-45nMQ22MTXUCAQgng"
+  const accessToken = "mockAccessToken"
 
   test('lists pets', async () => {
-    render(<MemoryRouter><ListPets accessToken={accessToken}/></MemoryRouter>)
+    jest.spyOn(global, 'fetch').mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve(mockPets),
+    });
+
+    render(<MemoryRouter><ListPets accessToken={accessToken} userId={0}/></MemoryRouter>)
+
     await waitFor(() => {
-      expect(screen.getByText("Pets")).toBeInTheDocument();
+      expect(screen.getByTestId("pet-tbody")).toBeInTheDocument();
       const petTbody = screen.getByTestId("pet-tbody");
       expect(petTbody.children.length).toBeGreaterThan(0);
     });
   })
 
   test('navigates to pet details on click', async () => {
-    render(<MemoryRouter><ListPets accessToken={accessToken}/></MemoryRouter>)
+    jest.spyOn(global, 'fetch').mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve(mockPets),
+    });
+
+    render(<MemoryRouter><ListPets accessToken={accessToken} userId={0}/></MemoryRouter>)
     await waitFor(() => {
       const firstPetTr = screen.getAllByTestId("pet-tr")[0];
       expect(firstPetTr).toBeInTheDocument();
@@ -32,7 +70,13 @@ describe('ListPets', () => {
   })
 
   test('checkbox works', async () => {
-    render(<MemoryRouter><ListPets accessToken={accessToken}/></MemoryRouter>)
+    jest.spyOn(global, 'fetch').mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve(mockPets),
+    });
+    
+    render(<MemoryRouter><ListPets accessToken={accessToken} userId={0}/></MemoryRouter>)
+    
     await waitFor(() => {
       expect(screen.getByTestId("filter-checkbox")).toBeInTheDocument()
       const checkbox = screen.getByTestId("filter-checkbox");
