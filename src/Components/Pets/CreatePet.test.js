@@ -5,14 +5,13 @@ import { MemoryRouter } from 'react-router-dom';
 import ListPets from './ListPets';
 
 describe('CreatePet', () => {
-  const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwicm9sZSI6InBldF9vd25lciIsImlhdCI6MTUxNjIzOTAyMn0.QAtAc6Imr2-NDhRpPcobJfjA20vh_bDk3wMhL_-46Fw";
+  const accessToken = "mockAccessToken";
   const handleOnSubmitMock = jest.fn();
 
   test('creates new pet with valid data', async () => {
         render(
         <MemoryRouter>
-            <CreatePet accessToken={accessToken} />
-            <ListPets accessToken={accessToken} />
+            <ListPets accessToken={accessToken} userId={1}/>
         </MemoryRouter>
         );
 
