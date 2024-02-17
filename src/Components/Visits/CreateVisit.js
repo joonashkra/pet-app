@@ -31,15 +31,8 @@ export default function CreateVisit(props) {
         petId: parseInt(petId, 10),
         comment: comment,
       }
-  
-      const getVisitsRepsonse = await fetch(`http://localhost:4000/visits`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
 
-      const visits = await getVisitsRepsonse.json()
+      const visits = props.visits
 
       const doesVisitExist = visits.some(
         (visit) =>
@@ -61,7 +54,6 @@ export default function CreateVisit(props) {
           body: JSON.stringify(newVisit),
         })
         const responseData = await postVisitResponse.json()
-        window.alert("New Visit Created.")
         props.addVisit(responseData.visit)
         setVisitDate(new Date())
         setComment("")

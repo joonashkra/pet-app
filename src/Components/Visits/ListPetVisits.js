@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Col } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import CreateVisit from './CreateVisit';
 
 export default function ListPetVisits(props) {
@@ -53,7 +53,7 @@ export default function ListPetVisits(props) {
               <option value="past">Past Visits</option>
               <option value="upcoming">Upcoming Visits</option>
             </select>
-            <Table className="table table-hover">
+            <table className="table table-hover">
               <thead>
                 <tr>
                   <th scope="col">Date</th>
@@ -71,11 +71,11 @@ export default function ListPetVisits(props) {
                     </tr>
                     ))}
                 </tbody>
-            </Table>
+            </table>
             {petStatus === "alive" && 
             <div>
                 <hr/>
-                <CreateVisit addVisit={addVisit} petId={props.petId} accessToken={accessToken}/>
+                <CreateVisit addVisit={addVisit} petId={props.petId} accessToken={accessToken} visits={visits}/>
             </div>
             }
           </div>

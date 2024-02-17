@@ -54,7 +54,7 @@ export default function PetDetails(props) {
 
   
   useEffect(() => {
-    const fetchUserName = async () => {
+    const fetchOwnerName = async () => {
       if(userId > 0) return
       try {
         if (!pet) return; 
@@ -63,28 +63,28 @@ export default function PetDetails(props) {
             Authorization: `Bearer ${accessToken}`,
           },
         });
-        const userData = await response.json()
-        const owner = userData.find(user => user.id === pet.ownerId)
+        const ownerData = await response.json()
+        const owner = ownerData.find(owner => owner.id === pet.ownerId)
         setOwnerName(owner.name)
       } catch (error) {
         console.error('Error fetching users:', error)
       }
     }
-    fetchUserName()
+    fetchOwnerName()
   }, [accessToken, pet, userId]);
 
   const returnToPets = () => {
     navigate("/pets")
   }
 
-  if (!pet || error) {
-    return <div>{error}</div>
-  }
-
   const handleDoctorCommentChange = (e) => {
     const commentValue = e.target.value
     setDoctorComment(commentValue)
     localStorage.setItem(`doctorComments/${id}`, commentValue)
+  }
+
+  if (!pet || error) {
+    return <div>{error}</div>
   }
 
   return (
