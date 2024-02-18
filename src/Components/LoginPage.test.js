@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor, fireEvent } from '@testing-library/react';
+import { render, waitFor, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { MemoryRouter, useNavigate } from 'react-router-dom';
 import LoginPage from './LoginPage';
@@ -13,15 +13,27 @@ jest.mock('react-router-dom', () => ({
 
 describe("login", () => {
     test("show error message on wrong input", async () => {
-        const { getByLabelText, getByText } = render(
+        const mockAccessToken = 'mockAccessToken';
+        const mockResponse = { access_token: mockAccessToken };
+
+        global.fetch = jest.fn().mockResolvedValue({
+            json: jest.fn().mockResolvedValue(mockResponse),
+            status: 403
+        })
+
+        render(
             <MemoryRouter>
                 <LoginPage />
             </MemoryRouter>
         )
 
-        const emailInput = getByLabelText('Email Address')
-        const passwordInput = getByLabelText('Password')
-        const loginButton = getByText('Login')
+        await waitFor(() => {
+            expect(screen.getByText('Login')).toBeInTheDocument()
+        })
+
+        const emailInput = screen.getByLabelText('Email Address')
+        const passwordInput = screen.getByLabelText('Password')
+        const loginButton = screen.getByText('Login')
 
         fireEvent.change(emailInput, { target: { value: 'wrong@email.com' } })
         fireEvent.change(passwordInput, { target: { value: 'wrongPassword' } })
@@ -29,7 +41,7 @@ describe("login", () => {
         fireEvent.click(loginButton)
 
         await waitFor(() => {
-            const errorMessage = getByText('Wrong email or password.')
+            const errorMessage = screen.queryByTestId("login-error-msg")
             expect(errorMessage).toBeInTheDocument()
         })
     })
@@ -57,15 +69,19 @@ describe("login", () => {
         })()
         Object.defineProperty(window, 'sessionStorage', { value: sessionStorageMock })
 
-        const { getByLabelText, getByText } = render(
+        render(
             <MemoryRouter>
                 <LoginPage />
             </MemoryRouter>
         )
 
-        const emailInput = getByLabelText('Email Address');
-        const passwordInput = getByLabelText('Password');
-        const loginButton = getByText('Login');
+        await waitFor(() => {
+            expect(screen.getByText('Login')).toBeInTheDocument()
+        })
+
+        const emailInput = screen.getByLabelText('Email Address');
+        const passwordInput = screen.getByLabelText('Password');
+        const loginButton = screen.getByText('Login');
 
         fireEvent.change(emailInput, { target: { value: 'correct@email.com' } });
         fireEvent.change(passwordInput, { target: { value: 'correctPassword' } });

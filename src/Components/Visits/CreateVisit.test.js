@@ -21,24 +21,22 @@ describe('CreateVisit', () => {
     ]
   
     test('creates new visit with valid data', async () => {
-
-        jest.spyOn(global, "fetch").mockResolvedValueOnce({
-            ok: true,
-            json: () => Promise.resolve({ id: 1 }),
-        });
   
         render(
             <MemoryRouter initialEntries={["/pets/1"]}>
                 <CreateVisit addVisit={jest.fn()} petId={1} accessToken={accessToken} visits={mockUpcomingVisit}/>
             </MemoryRouter>
         );
+
+        jest.spyOn(global, "fetch").mockResolvedValueOnce({
+            ok: true,
+            json: () => Promise.resolve({ id: 1 }),
+        });
     
         await waitFor(() => {
             expect(screen.getByLabelText("New Visit Date")).toBeInTheDocument();
             expect(screen.getByPlaceholderText('Enter comment for visit...')).toBeInTheDocument()
         });
-
-        screen.getByTestId("create-visit-form").onsubmit = handleOnSubmitMock;
 
         const visitDate = new Date();
         visitDate.setDate(visitDate.getDate() + 20); 
@@ -49,22 +47,33 @@ describe('CreateVisit', () => {
         fireEvent.click(screen.getByTestId("create-visit-btn"));
     
         await waitFor(() => {
-            expect(handleOnSubmitMock).toHaveBeenCalled();
-        }); 
+            expect(global.fetch).toHaveBeenCalledWith(
+              'http://localhost:4000/visits',
+              expect.objectContaining({
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify({ date: newVisitDate, petId: 1, comment: "commentTest" }),
+              })
+            );
+          })
 
     });
   
     test('shows error on past visit date', async () => {
-        jest.spyOn(global, "fetch").mockResolvedValueOnce({
-            ok: true,
-            json: () => Promise.resolve({ id: 1 }),
-        });
   
         render(
             <MemoryRouter initialEntries={["/pets/1"]}>
                 <CreateVisit addVisit={jest.fn()} petId={1} accessToken={accessToken} visits={mockUpcomingVisit}/>
             </MemoryRouter>
         );
+
+        jest.spyOn(global, "fetch").mockResolvedValueOnce({
+            ok: true,
+            json: () => Promise.resolve({ id: 1 }),
+        });
     
         await waitFor(() => {
             expect(screen.getByLabelText("New Visit Date")).toBeInTheDocument();

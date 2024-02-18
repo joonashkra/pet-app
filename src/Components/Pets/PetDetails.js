@@ -116,7 +116,7 @@ export default function PetDetails(props) {
                   <div className='DoctorSection' data-testid="doctors-section">
                     <hr/>
                     <label htmlFor="exampleFormControlTextarea1" className="form-label">Comment:</label> 
-                    <textarea className="form-control" id="exampleFormControlTextarea1" rows="2" value={doctorComment} onChange={handleDoctorCommentChange}></textarea>
+                    <textarea className="form-control" id="exampleFormControlTextarea1" rows="1" value={doctorComment} onChange={handleDoctorCommentChange}></textarea>
                     <br/>
                     <label>Update {pet.name}'s status:</label>
                     <UpdatePet petId={pet.id} petStatus={pet.status} accessToken={accessToken}/>

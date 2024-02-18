@@ -15,11 +15,14 @@ export default function CreatePet(props) {
   const userId = props.userId
   const [errorMessage, setErrorMessage] = useState("")
 
+  const offsetMilliseconds = petBirthDate.getTimezoneOffset() * 60000;
+  const dob = new Date(petBirthDate.getTime() - offsetMilliseconds).toISOString().substring(0, 10);
+
   const newPet = {
     name: petName,
     petType: petType,
     status: "alive",
-    dob: petBirthDate.toISOString().substring(0, 10),
+    dob: dob,
     ownerId: userId
   }
 
@@ -38,7 +41,7 @@ export default function CreatePet(props) {
 
           const responseData = await response.json()
           updatePetList(newPet)
-          alert("Pet added succesfully.");
+          window.alert("Pet added succesfully.");
           setPetType("")
           setPetName("")
           setPetBirthDate(new Date())

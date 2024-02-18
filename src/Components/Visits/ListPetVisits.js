@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Col } from 'react-bootstrap';
 import CreateVisit from './CreateVisit';
-import { useParams } from 'react-router-dom';
 
 export default function ListPetVisits(props) {
     const [visits, setVisits] = useState([])
@@ -43,7 +42,6 @@ export default function ListPetVisits(props) {
 
     const addVisit = (newVisit) => {
       setVisits((prevVisits) => [...prevVisits, newVisit]);
-      setShowPast(!showPast)
     }
 
     return (

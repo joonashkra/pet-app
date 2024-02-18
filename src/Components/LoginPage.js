@@ -58,7 +58,7 @@ export default function LoginPage() {
               <input className="form-control" type="email" id="email" placeholder="Enter email..." value={email} onChange={handleEmailChange}/>
               <label className='form-label' htmlFor="password">Password</label>
               <input className="form-control" type="password" id="password" placeholder="Enter password..." value={password} onChange={handlePasswordChange}/>
-              {errorMessage && <p style={{color: 'red' }}>{errorMessage}</p>}
+              {errorMessage && <p style={{color: 'red' }} data-testid="login-error-msg">{errorMessage}</p>}
               <button className="btn btn-primary" type="submit" id="LogInButton">Login</button>
             </form>
           </div>

@@ -19,6 +19,7 @@ export default function UpdatePet(props) {
         },
         body: JSON.stringify({ status: newStatus }),
       })
+      window.alert("Pet status updated succesfully.")
       window.location.reload(true)
     } 
     catch (error) {
@@ -32,7 +33,7 @@ export default function UpdatePet(props) {
 
   return (
     <div>
-      <select className="form-select form-select-sm" aria-label="Small select example" value={newStatus} onChange={handleStatusChange}>
+      <select className="form-select form-select-sm" data-testid="pet-status-select" value={newStatus} onChange={handleStatusChange}>
         <option value="" hidden={newStatus === ""}>Select new status:</option>
         <option value="alive" disabled={petStatus === 'alive'}>ALIVE</option>
         <option value="deceased" disabled={petStatus === 'deceased'}>DECEASED</option>

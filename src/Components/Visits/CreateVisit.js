@@ -26,9 +26,12 @@ export default function CreateVisit(props) {
     }
   
     try {
-      const nextDay = new Date(visitDate);
+
+      const offsetMilliseconds = visitDate.getTimezoneOffset() * 60000; // Convert minutes to milliseconds
+      const adjustedVisitDate = new Date(visitDate.getTime() - offsetMilliseconds);
+      
       const newVisit = {
-        date: nextDay.toISOString().substring(0, 10),
+        date: adjustedVisitDate.toISOString().substring(0, 10),
         petId: parseInt(petId, 10),
         comment: comment,
       }
@@ -56,7 +59,7 @@ export default function CreateVisit(props) {
         })
         const responseData = await postVisitResponse.json()
         addVisit(responseData.visit)
-        alert("Visit added succesfully.");
+        window.alert("Visit added succesfully.");
         setVisitDate(new Date())
         setComment("")
         setErrorMessage("")

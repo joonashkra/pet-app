@@ -41,6 +41,7 @@ describe('ListPets', () => {
   const accessToken = "mockAccessToken"
 
   test('lists pets', async () => {
+
     jest.spyOn(global, 'fetch').mockResolvedValueOnce({
       ok: true,
       json: () => Promise.resolve(mockPets),
