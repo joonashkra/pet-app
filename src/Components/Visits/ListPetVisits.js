@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 export default function ListPetVisits(props) {
     const [visits, setVisits] = useState([])
     const accessToken = props.accessToken
-    const [showUpcoming, setShowUpcoming] = useState(true)
+    const [showPast, setShowPast] = useState(true)
     const petId = Number(props.petId)
     const petStatus = props.petStatus
   
@@ -29,7 +29,7 @@ export default function ListPetVisits(props) {
     }, [accessToken])
   
     // Filter upcoming visits based on the current date and sort them in chronological order
-    const filteredVisits = !showUpcoming
+    const filteredVisits = !showPast
     ? visits
         .filter((visit) => new Date(visit.date) >= new Date())
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
@@ -38,7 +38,7 @@ export default function ListPetVisits(props) {
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   
     const toggleVisitsList = () => {
-      setShowUpcoming(!showUpcoming)
+      setShowPast(!showPast)
     }
 
     const addVisit = (newVisit) => {
@@ -50,10 +50,12 @@ export default function ListPetVisits(props) {
         <div className='card'>
           <h4 className='card-header'>Visits</h4>
           <div className='card-body'>
-            <select value={showUpcoming ? 'past' : 'upcoming'} onChange={toggleVisitsList} className="form-select form-select-sm" aria-label="Small select example">
-              <option value="past">Past Visits</option>
-              <option value="upcoming">Upcoming Visits</option>
-            </select>
+            <form data-testid="sort-select">
+              <select value={showPast ? 'past' : 'upcoming'} onChange={toggleVisitsList} className="form-select form-select-sm">
+                <option value="past">Past Visits</option>
+                <option value="upcoming">Upcoming Visits</option>
+              </select>
+            </form>
             <table className="table table-hover">
               <thead>
                 <tr>

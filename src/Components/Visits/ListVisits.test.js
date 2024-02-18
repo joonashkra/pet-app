@@ -54,7 +54,7 @@ describe('ListVisits', () => {
     const visitRows = screen.getAllByTestId("visits-tr")
 
     const dates = Array.from(visitRows, (row) => row.children[0].textContent);
-    const dateObjects = dates.map((date) => new Date(date.substring(0, 10))); // Only keep the date part
+    const dateObjects = dates.map((date) => new Date(date.substring(0, 10)));
 
     // expect upcoming visits to be in chronological order the first one being closest to today
     for (let i = 0; i < dateObjects.length - 1; i++) {

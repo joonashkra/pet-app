@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 export default function CreateVisit(props) {
 
   const petId = props.petId ?? ''
+  const addVisit = props.addVisit
   const [visitDate, setVisitDate] = useState(new Date())
   const [comment, setComment] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
@@ -54,7 +55,7 @@ export default function CreateVisit(props) {
           body: JSON.stringify(newVisit),
         })
         const responseData = await postVisitResponse.json()
-        props.addVisit(responseData.visit)
+        addVisit(responseData.visit)
         setVisitDate(new Date())
         setComment("")
         setErrorMessage("")
@@ -70,10 +71,10 @@ export default function CreateVisit(props) {
   
   return (
     <div>
-      <Form onSubmit={addNewVisit}>
-        <Form.Label>New Visit Date</Form.Label>
+      <Form onSubmit={addNewVisit} data-testid="create-visit-form">
+        <Form.Label htmlFor="visitDate">New Visit Date</Form.Label>
         <Form.Group>
-          <DatePicker selected={visitDate} onChange={(date) => setVisitDate(date)} />
+          <DatePicker selected={visitDate} onChange={(date) => setVisitDate(date)} id='visitDate'/>
           <p style={{color: "red"}}>{errorMessage}</p>
         </Form.Group>
           <Form.Label>Comment</Form.Label>
@@ -85,7 +86,7 @@ export default function CreateVisit(props) {
                 onChange={handleComment}
               />
             </Form.Group>
-        <Button type="submit" id="CreateVisitButton">Add Visit</Button>
+        <Button type="submit" id="CreateVisitButton" data-testid="create-visit-btn">Add Visit</Button>
       </Form>
     </div>
   )
