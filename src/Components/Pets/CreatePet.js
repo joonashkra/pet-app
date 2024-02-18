@@ -38,6 +38,7 @@ export default function CreatePet(props) {
 
           const responseData = await response.json()
           updatePetList(newPet)
+          alert("Pet added succesfully.");
           setPetType("")
           setPetName("")
           setPetBirthDate(new Date())

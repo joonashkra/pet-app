@@ -43,6 +43,7 @@ export default function ListPetVisits(props) {
 
     const addVisit = (newVisit) => {
       setVisits((prevVisits) => [...prevVisits, newVisit]);
+      setShowPast(!showPast)
     }
 
     return (

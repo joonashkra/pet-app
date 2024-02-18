@@ -56,6 +56,7 @@ export default function CreateVisit(props) {
         })
         const responseData = await postVisitResponse.json()
         addVisit(responseData.visit)
+        alert("Visit added succesfully.");
         setVisitDate(new Date())
         setComment("")
         setErrorMessage("")

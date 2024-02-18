@@ -11,7 +11,7 @@ describe('CreatePet', () => {
   test('creates new pet with valid data', async () => {
     jest.spyOn(global, "fetch").mockResolvedValueOnce({
       ok: true,
-      json: () => Promise.resolve({ id: 1 }), // Mocked response for the created pet
+      json: () => Promise.resolve({ id: 1 }),
     });
 
     render(
@@ -36,7 +36,7 @@ describe('CreatePet', () => {
     fireEvent.click(screen.getByTestId("create-pet-btn"));
 
     await waitFor(() => {
-      expect(handleOnSubmitMock).toHaveBeenCalled();
+      expect(handleOnSubmitMock).toHaveBeenCalled()
     });
   });
 
@@ -47,7 +47,6 @@ describe('CreatePet', () => {
       </MemoryRouter>
     );
   
-    // Wait for the form elements to be present
     await waitFor(() => {
       expect(screen.getByPlaceholderText("Enter pet type...")).toBeInTheDocument();
       expect(screen.getByPlaceholderText("Enter name...")).toBeInTheDocument();
@@ -55,23 +54,21 @@ describe('CreatePet', () => {
       expect(screen.getByTestId("create-pet-btn")).toBeInTheDocument();
     });
   
-    // Test for null pet type
     fireEvent.change(screen.getByPlaceholderText('Enter pet type...'), { target: { value: '' } });
     fireEvent.change(screen.getByPlaceholderText('Enter name...'), { target: { value: 'nameTest' } });
     fireEvent.change(screen.getByLabelText("Date of Birth"), { target: { value: "2023-12-31" } });
     fireEvent.click(screen.getByTestId("create-pet-btn"));
     await waitFor(() => {
-        expect(handleOnSubmitMock).not.toHaveBeenCalled();
+        expect(handleOnSubmitMock).not.toHaveBeenCalled()
         expect(screen.getByTestId("error-msg")).toBeInTheDocument();
     });
-  
-    // Test for null pet name
+
     fireEvent.change(screen.getByPlaceholderText('Enter pet type...'), { target: { value: 'typeTest' } });
     fireEvent.change(screen.getByPlaceholderText('Enter name...'), { target: { value: '' } });
     fireEvent.change(screen.getByLabelText("Date of Birth"), { target: { value: "2023-12-31" } });
     fireEvent.click(screen.getByTestId("create-pet-btn"));
     await waitFor(() => {
-        expect(handleOnSubmitMock).not.toHaveBeenCalled();
+        expect(handleOnSubmitMock).not.toHaveBeenCalled()
         expect(screen.getByTestId("error-msg")).toBeInTheDocument();
     });
   
@@ -81,7 +78,7 @@ describe('CreatePet', () => {
     fireEvent.change(screen.getByLabelText("Date of Birth"), { target: { value: "2025-12-31" } });
     fireEvent.click(screen.getByTestId("create-pet-btn"));
     await waitFor(() => {
-        expect(handleOnSubmitMock).not.toHaveBeenCalled();
+        expect(handleOnSubmitMock).not.toHaveBeenCalled()
         expect(screen.getByTestId("error-msg")).toBeInTheDocument();
     });
   });
