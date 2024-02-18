@@ -83,12 +83,12 @@ describe("PetDetails", () => {
 
         const visitRows = screen.getAllByTestId("pet-visits-tr")
 
-        const dates = Array.from(visitRows, (row) => row.children[0].textContent)
-        const dateObjects = dates.map((date) => new Date(date));
+        const dates = Array.from(visitRows, (row) => row.children[0].textContent);
+        const dateObjects = dates.map((date) => new Date(date.substring(0, 10)));
 
+        // expect past visits to be in chronological order the first one being closest to today
         for (let i = 0; i < dateObjects.length - 1; i++) {
-            console.log(dateObjects[i])
-            expect(dateObjects[i] >= dateObjects[i + 1]).toBe(true);
+            expect(dateObjects[i] > dateObjects[i + 1]).toBe(true);
         }
 
     })

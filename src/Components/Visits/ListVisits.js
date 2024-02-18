@@ -58,7 +58,7 @@ export default function ListVisits(props) {
                 </thead>
                 <tbody data-testid="visits-tbody">
                   {filteredVisits.map((visit) => (
-                    <tr data-testid="visit-tr" key={visit.id}>
+                    <tr data-testid="visits-tr" key={visit.id}>
                       <td>{visit.petId}</td>
                       <td>{visit.date}</td>
                       <td>{visit.comment}</td>
