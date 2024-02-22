@@ -1,13 +1,26 @@
-Veterinary Clinic web-application created as a frontend project with React and Bootstrap CSS
+# Veterinary Clinic Web Application
 
-run frontend
-### `npm install`
-### `npm start`
+Web application for a veterinary clinic, created as a frontend project using React and Bootstrap CSS.
 
-run backend
-### `cd pet-backend`
-### `npm install`
-### `npm start`
+## Features
+
+- View, create and update pets and visits.
+- User authentication.
+- Dynamically adjusts its behavior and available features based on the user's login status and role.
+- User-friendly and responsive interface.
+
+## How to Run
+
+### Frontend
+
+   npm install
+   npm start
+
+### Backend
+
+   cd pet-backend
+   npm install
+   npm start
 
 Open [http://localhost:3000] to view in browser. Back-end runs on [http://localhost:4000]
 
