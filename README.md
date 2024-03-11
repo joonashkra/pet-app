@@ -1,6 +1,6 @@
 # Veterinary Clinic Web Application
 
-Web application for a veterinary clinic, created as a frontend project using React and Bootstrap CSS.
+Web application for a veterinary clinic, created as a frontend course-project using React and Bootstrap CSS.
 
 ## Features
 
